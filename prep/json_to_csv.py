@@ -59,11 +59,11 @@ for folder, label in folders.items():
             })
 
 df = pd.DataFrame(rows)
-df.to_csv("annotations.csv", index=False)
+df.to_csv("data/annotations.csv", index=False)
 
 print(f"\nTotal annotations: {len(df)}")
 print(f"\nClass distribution:")
 print(df["class"].value_counts())
-print(f"\nSaved to annotations.csv")
+print(f"\nSaved to data/annotations.csv")
 print("\nFirst 5 rows:")
 print(df.head())

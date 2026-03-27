@@ -39,19 +39,19 @@ The one mistake is a photo of a remote with a TV behind it, and the model said "
 
 120 photos, 40 per class, boxes drawn in LabelMe. The split is 96 for training and 24 for testing, balanced by class. The images are on Kaggle (`tylerde/rcnn-multiclass-dataset`). Only the box annotations are in this repo.
 
-How the dataset was built:
+How the dataset was built (run from the project folder, photos in `images/tv`, `images/remote`, `images/wine_bottle`):
 
 | Step | Script | What it does |
 |---|---|---|
-| 1 | `rename_images.py` | renames photos to `tv_01.jpg`, `remote_01.jpg`, ... |
+| 1 | `prep/rename_images.py` | renames photos to `tv_01.jpg`, `remote_01.jpg`, ... |
 | 2 | LabelMe | draw a box around the object, saved as JSON |
-| 3 | `json_to_csv.py` | collects all boxes into `annotations.csv` |
-| 4 | `split_dataset.py` | 80/20 split into `train.csv`, `test.csv` and `dataset/train`, `dataset/test` |
+| 3 | `prep/json_to_csv.py` | collects all boxes into `data/annotations.csv` |
+| 4 | `prep/split_dataset.py` | 80/20 split into `data/train.csv`, `data/test.csv` and `dataset/train`, `dataset/test` |
 
 ## Requirements
 
 - **Python 3** and the packages in `requirements.txt` (PyTorch, torchvision, pandas, matplotlib, LabelMe)
-- `split_dataset.py` also needs `scikit-learn`
+- `prep/split_dataset.py` also needs `scikit-learn`
 - A GPU helps. Training was done on Kaggle.
 
 ## Run
@@ -73,11 +73,8 @@ To run locally instead, change `DATA_DIR` at the top of both scripts to the fold
 ```
 rcnn_multi.py       dataset loader, model, training, testing
 visualize.py        draws test images with boxes and predictions
-rename_images.py    step 1 of dataset prep
-json_to_csv.py      step 3: LabelMe JSON to CSV
-split_dataset.py    step 4: train/test split
-annotations.csv     all 120 boxes
-train.csv, test.csv the split
+prep/               dataset preparation, steps 1, 3 and 4
+data/               annotations.csv (all 120 boxes), train.csv, test.csv
 models/             trained weights (not in git)
 screenshots/        loss plot and predictions
 ```
